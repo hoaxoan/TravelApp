@@ -1,0 +1,35 @@
+{
+  "connection": "default",
+  "collectionName": "photos",
+  "info": {
+    "name": "photos",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "upload_file_id": {
+      "type": "integer",
+      "multiple": false
+    },
+    "related_id": {
+      "type": "integer",
+      "multiple": false
+    },
+    "related_type": {
+      "type": "string",
+      "multiple": false
+    },
+    "field": {
+      "type": "string",
+      "multiple": false
+    },
+    "photo": {
+      "model": "file",
+      "plugin": "upload"
+    }
+  }
+}

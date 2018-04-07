@@ -1,0 +1,63 @@
+{
+  "connection": "default",
+  "collectionName": "restaurants",
+  "info": {
+    "name": "restaurants",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "multiple": false
+    },
+    "description": {
+      "type": "string",
+      "multiple": false
+    },
+    "photo": {
+      "type": "string",
+      "multiple": false
+    },
+    "watch": {
+      "type": "integer",
+      "multiple": false
+    },
+    "address": {
+      "type": "string",
+      "multiple": false
+    },
+    "phone": {
+      "type": "string",
+      "multiple": false
+    },
+    "latE7": {
+      "type": "integer",
+      "multiple": false
+    },
+    "lngE7": {
+      "type": "integer",
+      "multiple": false
+    },
+    "website": {
+      "type": "string",
+      "multiple": false
+    },
+    "ratingHistogram": {
+      "type": "float",
+      "multiple": false
+    },
+    "reviewsCount": {
+      "type": "integer",
+      "multiple": false
+    },
+    "voteCount": {
+      "type": "integer",
+      "multiple": false
+    }
+  }
+}

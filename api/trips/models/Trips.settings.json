@@ -1,0 +1,35 @@
+{
+  "connection": "default",
+  "collectionName": "trips",
+  "info": {
+    "name": "trips",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "multiple": false
+    },
+    "photo": {
+      "type": "string",
+      "multiple": false
+    },
+    "start_date": {
+      "type": "date",
+      "multiple": false
+    },
+    "end_date": {
+      "type": "date",
+      "multiple": false
+    },
+    "status": {
+      "type": "integer",
+      "multiple": false
+    }
+  }
+}

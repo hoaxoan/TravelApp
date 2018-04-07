@@ -1,0 +1,68 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/restaurants",
+      "handler": "Restaurants.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/restaurants/:id",
+      "handler": "Restaurants.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/restaurants",
+      "handler": "Restaurants.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/restaurants/:id",
+      "handler": "Restaurants.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/restaurants/:id",
+      "handler": "Restaurants.destroy",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/restaurants/:id/relationships/:relation",
+      "handler": "Restaurants.createRelation",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/restaurants/:id/relationships/:relation",
+      "handler": "Restaurants.updateRelation",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/restaurants/:id/relationships/:relation",
+      "handler": "Restaurants.destroyRelation",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

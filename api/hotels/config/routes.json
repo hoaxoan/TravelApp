@@ -1,0 +1,68 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/hotels",
+      "handler": "Hotels.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/hotels/:id",
+      "handler": "Hotels.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/hotels",
+      "handler": "Hotels.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/hotels/:id",
+      "handler": "Hotels.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/hotels/:id",
+      "handler": "Hotels.destroy",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/hotels/:id/relationships/:relation",
+      "handler": "Hotels.createRelation",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/hotels/:id/relationships/:relation",
+      "handler": "Hotels.updateRelation",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/hotels/:id/relationships/:relation",
+      "handler": "Hotels.destroyRelation",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/photos",
+      "handler": "Photos.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/photos/:id",
+      "handler": "Photos.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/photos",
+      "handler": "Photos.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/photos/:id",
+      "handler": "Photos.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/photos/:id",
+      "handler": "Photos.destroy",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/photos/:id/relationships/:relation",
+      "handler": "Photos.createRelation",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/photos/:id/relationships/:relation",
+      "handler": "Photos.updateRelation",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/photos/:id/relationships/:relation",
+      "handler": "Photos.destroyRelation",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

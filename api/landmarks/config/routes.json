@@ -1,0 +1,68 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/landmarks",
+      "handler": "Landmarks.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/landmarks/:id",
+      "handler": "Landmarks.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/landmarks",
+      "handler": "Landmarks.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/landmarks/:id",
+      "handler": "Landmarks.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/landmarks/:id",
+      "handler": "Landmarks.destroy",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/landmarks/:id/relationships/:relation",
+      "handler": "Landmarks.createRelation",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/landmarks/:id/relationships/:relation",
+      "handler": "Landmarks.updateRelation",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/landmarks/:id/relationships/:relation",
+      "handler": "Landmarks.destroyRelation",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

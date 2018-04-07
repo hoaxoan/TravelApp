@@ -1,0 +1,68 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/guidelines",
+      "handler": "Guidelines.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/guidelines/:id",
+      "handler": "Guidelines.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/guidelines",
+      "handler": "Guidelines.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/guidelines/:id",
+      "handler": "Guidelines.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/guidelines/:id",
+      "handler": "Guidelines.destroy",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/guidelines/:id/relationships/:relation",
+      "handler": "Guidelines.createRelation",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/guidelines/:id/relationships/:relation",
+      "handler": "Guidelines.updateRelation",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/guidelines/:id/relationships/:relation",
+      "handler": "Guidelines.destroyRelation",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
