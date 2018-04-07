@@ -63,14 +63,6 @@
       "config": {
         "policies": []
       }
-    },
-    {
-      "method": "GET",
-      "path": "/searchs",
-      "handler": "Searchs.find",
-      "config": {
-        "policies": []
-      }
     }
   ]
 }
