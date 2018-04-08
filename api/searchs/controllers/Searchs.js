@@ -15,7 +15,7 @@ module.exports = {
    */
 
   find: async (ctx) => {
-    const data = await strapi.services.landmarks.fetchAll(ctx.query);
+    const data = await strapi.services.searchs.searchs(ctx.query);
 
     // Send 200 `ok`
     ctx.send(data);
