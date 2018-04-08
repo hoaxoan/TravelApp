@@ -1,0 +1,68 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/visitedplaces",
+      "handler": "Visitedplaces.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/visitedplaces/:id",
+      "handler": "Visitedplaces.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/visitedplaces",
+      "handler": "Visitedplaces.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/visitedplaces/:id",
+      "handler": "Visitedplaces.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/visitedplaces/:id",
+      "handler": "Visitedplaces.destroy",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/visitedplaces/:id/relationships/:relation",
+      "handler": "Visitedplaces.createRelation",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/visitedplaces/:id/relationships/:relation",
+      "handler": "Visitedplaces.updateRelation",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/visitedplaces/:id/relationships/:relation",
+      "handler": "Visitedplaces.destroyRelation",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -21,7 +21,7 @@ module.exports = {
    */
 
   fetchAll: (params) => {
-    const convertedParams = strapi.utils.models.convertParams('restaurants', params);
+    const convertedParams = strapi.services.searchs.convertSearchParams('restaurants', params);
 
     return Restaurants.query(function(qb) {
       _.forEach(convertedParams.where, (where, key) => {

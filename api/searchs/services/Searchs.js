@@ -21,7 +21,7 @@ module.exports = {
    */
 
   searchs: (params) => {
-    const convertedParams = strapi.services.landmarks.convertSearchParams('landmarks', params);
+    const convertedParams = strapi.services.searchs.convertSearchParams('landmarks', params);
     
     return Landmarks.query(function(qb) {
       _.forEach(convertedParams.where, (where, key) => {
@@ -86,6 +86,14 @@ module.exports = {
           key : 'where.name[0]',
           value : {
             symbol: 'like',
+            value
+          }
+        }
+      } else if (key === 'ids') {
+        result = {
+          key : 'where.id[0]',
+          value : {
+            symbol: 'in',
             value
           }
         }

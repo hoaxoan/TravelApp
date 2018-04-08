@@ -1,0 +1,31 @@
+{
+  "connection": "default",
+  "collectionName": "visitedplaces",
+  "info": {
+    "name": "visitedplaces",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "user": {
+      "type": "string",
+      "multiple": false
+    },
+    "related_id": {
+      "type": "integer",
+      "multiple": false
+    },
+    "related_type": {
+      "type": "string",
+      "multiple": false
+    },
+    "field": {
+      "type": "string",
+      "multiple": false
+    }
+  }
+}
