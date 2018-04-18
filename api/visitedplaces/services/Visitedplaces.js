@@ -106,16 +106,8 @@ module.exports = {
       ids.push(visitedplace.attributes.related_id);
     });
 
-
-    if (_.pick(params, 'related_type').related_type === 'landmarks') {
-      return await strapi.services.landmarks.fetchAll({ 'ids': ids });
-    } else if (_.pick(params, 'related_type').related_type === 'hotels') {
-      return await strapi.services.hotels.fetchAll({ 'ids': ids });
-    } else if (_.pick(params, 'related_type').related_type === 'restaurants') {
-      return await strapi.services.restaurants.fetchAll({ 'ids': ids });
-    } else {
-      return await strapi.services.landmarks.fetchAll({ 'ids': ids });
-    }
+    return await strapi.services.entities.fetchAll({ 'ids': ids });
+    
   }
 
 };

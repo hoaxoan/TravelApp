@@ -48,24 +48,12 @@ module.exports = {
    * @return {Promise}
    */
 
-  fetch: async (params) => {
+  fetch: (params) => {
     
-    // Photos
-    const photos = [];
-    const data = await strapi.services.photos.fetchAll({'related_id': _.pick(params, 'id').id});
-    _.forEach(data.models, async model => {
-      const photo = await strapi.plugins['upload'].services.upload.fetch({'id': model.attributes.upload_file_id});
-      photos.push(photo);
-    });
-
-    // Landmark
-    const landmark = await Landmarks.forge(_.pick(params, 'id')).fetch({
+    return Landmarks.forge({'entity_id': _.pick(params, 'id').id}).fetch({
       withRelated: _.keys(_.groupBy(_.reject(strapi.models.landmarks.associations, {autoPopulate: false}), 'alias'))
     });
 
-    _.set(landmark, 'attributes.photos', photos);
-
-    return landmark;
   },
 
   /**
@@ -102,34 +90,6 @@ module.exports = {
       await Landmarks.forge(params)[association.alias]().detach();
     });
     return Landmarks.forge(params).destroy();
-  },
-
-  /**
-   * Promise to fetch all landmarks.
-   *
-   * @return {Promise}
-   */
-
-  searchs: (params) => {
-    const convertedParams = strapi.services.searchs.convertSearchParams('landmarks', params);
-
-    return Landmarks.query(function(qb) {
-      _.forEach(convertedParams.where, (where, key) => {
-        _.forEach(where, async wh => {
-          qb.where(key, wh.symbol, wh.value);
-        });
-      });
-
-      if (convertedParams.sort) {
-        qb.orderBy(convertedParams.sort);
-      }
-
-      qb.offset(convertedParams.start);
-
-      qb.limit(convertedParams.limit);
-    }).fetchAll({
-      withRelated: _.keys(_.groupBy(_.reject(strapi.models.landmarks.associations, {autoPopulate: false}), 'alias'))
-    });
   }
 
 };

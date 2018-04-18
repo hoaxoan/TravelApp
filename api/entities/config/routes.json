@@ -1,0 +1,68 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/entities",
+      "handler": "Entities.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/entities/:id",
+      "handler": "Entities.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/entities",
+      "handler": "Entities.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/entities/:id",
+      "handler": "Entities.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/entities/:id",
+      "handler": "Entities.destroy",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/entities/:id/relationships/:relation",
+      "handler": "Entities.createRelation",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/entities/:id/relationships/:relation",
+      "handler": "Entities.updateRelation",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/entities/:id/relationships/:relation",
+      "handler": "Entities.destroyRelation",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

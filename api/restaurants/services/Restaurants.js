@@ -48,23 +48,11 @@ module.exports = {
    * @return {Promise}
    */
 
-  fetch: async (params) => {
-    // Photos
-    const photos = [];
-    const data = await strapi.services.photos.fetchAll({'related_id': _.pick(params, 'id').id});
-    _.forEach(data.models, async model => {
-      const photo = await strapi.plugins['upload'].services.upload.fetch({'id': model.attributes.upload_file_id});
-      photos.push(photo);
-    });
-
-    // restaurant
-    const restaurant = await Restaurants.forge(_.pick(params, 'id')).fetch({
+  fetch: (params) => {
+    
+    return Restaurants.forge(_.pick(params, 'id')).fetch({
       withRelated: _.keys(_.groupBy(_.reject(strapi.models.restaurants.associations, {autoPopulate: false}), 'alias'))
     });
-
-    _.set(restaurant, 'attributes.photos', photos);
-
-    return restaurant;
 
   },
 

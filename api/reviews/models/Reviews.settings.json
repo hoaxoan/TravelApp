@@ -1,0 +1,39 @@
+{
+  "connection": "default",
+  "collectionName": "reviews",
+  "info": {
+    "name": "reviews",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "multiple": false
+    },
+    "text": {
+      "type": "string",
+      "multiple": false
+    },
+    "rating": {
+      "type": "integer",
+      "multiple": false
+    },
+    "reviewerName": {
+      "type": "string",
+      "multiple": false
+    },
+    "reviewerImageUrl": {
+      "type": "string",
+      "multiple": false
+    },
+    "timeStamp": {
+      "type": "integer",
+      "multiple": false
+    }
+  }
+}

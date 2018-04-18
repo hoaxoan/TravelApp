@@ -21,9 +21,9 @@ module.exports = {
    */
 
   searchs: (params) => {
-    const convertedParams = strapi.services.searchs.convertSearchParams('landmarks', params);
+    const convertedParams = strapi.services.searchs.convertSearchParams('entities', params);
     
-    return Landmarks.query(function(qb) {
+    return Entities.query(function(qb) {
       _.forEach(convertedParams.where, (where, key) => {
         _.forEach(where, async wh => {
           qb.where(key, wh.symbol, wh.value);
@@ -89,6 +89,10 @@ module.exports = {
             value
           }
         }
+      } else if ((key === 'trip_id' && value === '0')
+      || (key === 'type' && value === '0')
+      || (key === 'mood_id' && value === '0')) {
+        result = null;
       } else if (key === 'ids') {
         result = {
           key : 'where.id[0]',
