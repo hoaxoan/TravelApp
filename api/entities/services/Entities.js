@@ -73,18 +73,23 @@ module.exports = {
     
     // Hotel
     const hotel = await Hotels.forge({'entity_id': _.pick(params, 'id').id}).fetch({
-      withRelated: _.keys(_.groupBy(_.reject(strapi.models.landmarks.associations, {autoPopulate: false}), 'alias'))
+      withRelated: _.keys(_.groupBy(_.reject(strapi.models.hotels.associations, {autoPopulate: false}), 'alias'))
     });
     
     _.set(entity, 'attributes.hotel', hotel);
 
     // Restaurant
     const restaurant = await Restaurants.forge({'entity_id': _.pick(params, 'id').id}).fetch({
-      withRelated: _.keys(_.groupBy(_.reject(strapi.models.landmarks.associations, {autoPopulate: false}), 'alias'))
+      withRelated: _.keys(_.groupBy(_.reject(strapi.models.restaurants.associations, {autoPopulate: false}), 'alias'))
     });
-    
+
     _.set(entity, 'attributes.restaurant', restaurant);
 
+    // Amenity
+    const amenities = await strapi.services.amenities.fetchAll({'entity_id': _.pick(params, 'id').id});
+    
+    _.set(entity, 'attributes.amenities', amenities);
+        
     return entity;
   },
 

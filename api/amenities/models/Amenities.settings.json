@@ -1,8 +1,8 @@
 {
   "connection": "default",
-  "collectionName": "visitedplaces",
+  "collectionName": "amenities",
   "info": {
-    "name": "visitedplaces",
+    "name": "amenities",
     "description": ""
   },
   "options": {
@@ -11,19 +11,15 @@
     "comment": ""
   },
   "attributes": {
-    "user_id": {
+    "name": {
       "type": "string",
       "multiple": false
     },
-    "related_id": {
+    "position": {
       "type": "integer",
       "multiple": false
     },
-    "related_type": {
-      "type": "string",
-      "multiple": false
-    },
-    "field": {
+    "thumbnailUrl": {
       "type": "string",
       "multiple": false
     }

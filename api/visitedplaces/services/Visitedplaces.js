@@ -97,9 +97,8 @@ module.exports = {
    */
 
   fetchByUser: async (params) => {
-    // Categories
-    const user = 1;
-    const visitedplaces = await strapi.services.visitedplaces.fetchAll({ 'user': user });
+    // VisitedPlaces
+    const visitedplaces = await strapi.services.visitedplaces.fetchAll(params);
     const ids = [];
 
     _.forEach(visitedplaces.models, async visitedplace => {

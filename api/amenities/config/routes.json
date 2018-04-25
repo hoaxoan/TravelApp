@@ -1,0 +1,68 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/amenities",
+      "handler": "Amenities.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/amenities/:id",
+      "handler": "Amenities.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/amenities",
+      "handler": "Amenities.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/amenities/:id",
+      "handler": "Amenities.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/amenities/:id",
+      "handler": "Amenities.destroy",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/amenities/:id/relationships/:relation",
+      "handler": "Amenities.createRelation",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/amenities/:id/relationships/:relation",
+      "handler": "Amenities.updateRelation",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/amenities/:id/relationships/:relation",
+      "handler": "Amenities.destroyRelation",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
