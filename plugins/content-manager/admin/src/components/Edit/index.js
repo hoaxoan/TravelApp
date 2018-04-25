@@ -137,6 +137,8 @@ class Edit extends React.PureComponent {
             const details = this.state.displayedFields[attr];
             // Retrieve the input's bootstrapClass from the layout
             const layout = this.getInputLayout(attr);
+            const appearance = get(layout, 'appearance');
+            const type = !isEmpty(appearance) ? appearance.toLowerCase() : get(layout, 'type', getInputType(details.type));
 
             return (
               <Input
@@ -148,10 +150,12 @@ class Edit extends React.PureComponent {
                 label={get(layout, 'label') || details.label || ''}
                 multiple={this.fileRelationAllowMultipleUpload(attr)}
                 name={attr}
+                onBlur={this.props.onBlur}
                 onChange={this.props.onChange}
-                selectOptions={get(this.props.attributes, [attr, 'enum'])}
                 placeholder={get(layout, 'placeholder') || details.placeholder}
-                type={get(layout, 'type', getInputType(details.type))}
+                resetProps={this.props.resetProps}
+                selectOptions={get(this.props.attributes, [attr, 'enum'])}
+                type={type}
                 validations={this.getInputValidations(attr)}
                 value={this.props.record[attr]}
               />
@@ -168,8 +172,10 @@ Edit.defaultProps = {
   formErrors: [],
   formValidations: [],
   layout: {},
+  onBlur: () => {},
   onChange: () => {},
   record: {},
+  resetProps: false,
   schema: {},
 };
 
@@ -179,8 +185,10 @@ Edit.propTypes = {
   formErrors: PropTypes.array,
   formValidations: PropTypes.array,
   layout: PropTypes.object,
+  onBlur: PropTypes.func,
   onChange: PropTypes.func,
   record: PropTypes.object,
+  resetProps: PropTypes.bool,
   schema: PropTypes.object,
 };
 

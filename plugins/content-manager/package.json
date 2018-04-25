@@ -1,8 +1,8 @@
 {
   "_from": "strapi-plugin-content-manager@alpha",
-  "_id": "strapi-plugin-content-manager@3.0.0-alpha.11.1",
+  "_id": "strapi-plugin-content-manager@3.0.0-alpha.12.0.1",
   "_inBundle": false,
-  "_integrity": "sha512-Tlclg9FTntNkkXo0ArMqzptJ1VF9Q2qDlcf7TJwqwWamamo/jjRU2/VA8vOBu7n76TV2JjF3lbR/goChKkqXKw==",
+  "_integrity": "sha512-2zRMgP1RNeZna6WyZwPjaUl1XvDA+S6L0g5Rs9jGIw5ltudK1seKuxpiWBZ5zbf5xsr1FpR5X0C6WWcsaO8rkQ==",
   "_location": "/strapi-plugin-content-manager",
   "_phantomChildren": {},
   "_requested": {
@@ -18,10 +18,10 @@
   "_requiredBy": [
     "#USER"
   ],
-  "_resolved": "https://registry.npmjs.org/strapi-plugin-content-manager/-/strapi-plugin-content-manager-3.0.0-alpha.11.1.tgz",
-  "_shasum": "6baeb6303346a7fc77bd313314ee400e617103c2",
+  "_resolved": "https://registry.npmjs.org/strapi-plugin-content-manager/-/strapi-plugin-content-manager-3.0.0-alpha.12.0.1.tgz",
+  "_shasum": "a0b67101e1e67fe33e32f549263850d35c48ecc5",
   "_spec": "strapi-plugin-content-manager@alpha",
-  "_where": "D:\\TravelAPI",
+  "_where": "D:\\strapi\\myProject",
   "author": {
     "name": "Strapi team",
     "email": "hi@strapi.io",
@@ -35,7 +35,7 @@
   "description": "A powerful UI to easily manage your data.",
   "devDependencies": {
     "react-select": "^1.0.0-rc.5",
-    "strapi-helper-plugin": "3.0.0-alpha.11.1"
+    "strapi-helper-plugin": "3.0.0-alpha.12.0.1"
   },
   "engines": {
     "node": ">= 9.0.0",
@@ -75,7 +75,7 @@
     "icon": "plug",
     "description": "content-manager.plugin.description"
   },
-  "version": "3.0.0-alpha.11.1",
+  "version": "3.0.0-alpha.12.0.1",
   "warnings": [
     {
       "code": "ENOTSUP",
@@ -83,7 +83,7 @@
         "node": ">= 9.0.0",
         "npm": ">= 3.0.0"
       },
-      "pkgid": "strapi-plugin-content-manager@3.0.0-alpha.11.1"
+      "pkgid": "strapi-plugin-content-manager@3.0.0-alpha.12.0.1"
     },
     {
       "code": "ENOTSUP",
@@ -91,7 +91,7 @@
         "node": ">= 9.0.0",
         "npm": ">= 3.0.0"
       },
-      "pkgid": "strapi-plugin-content-manager@3.0.0-alpha.11.1"
+      "pkgid": "strapi-plugin-content-manager@3.0.0-alpha.12.0.1"
     }
   ]
 }

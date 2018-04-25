@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
-import { get, includes, isEmpty, isObject, toNumber, toString, replace } from 'lodash';
+import { cloneDeep, findIndex, get, includes, isEmpty, isObject, toNumber, toString, replace } from 'lodash';
 import cn from 'classnames';
 
 // You can find these components in either
@@ -30,14 +30,14 @@ import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import getQueryParameters from 'utils/getQueryParameters';
 import { bindLayout } from 'utils/bindLayout';
-import { checkFormValidity } from 'utils/formValidations';
+import inputValidations from 'utils/inputsValidations';
 
-// Layout
-import layout from '../../../../config/layout';
+import { checkFormValidity } from 'utils/formValidations';
 
 import {
   changeData,
   getData,
+  getLayout,
   initModelProps,
   onCancel,
   resetProps,
@@ -54,14 +54,12 @@ import styles from './styles.scss';
 export class EditPage extends React.Component {
   componentDidMount() {
     this.props.initModelProps(this.getModelName(), this.isCreating(), this.getSource(), this.getModelAttributes());
-    this.layout = bindLayout.call(
-      this,
-      get(this.context.plugins.toJS(), `${this.getSource()}.layout`, layout),
-    );
 
     if (!this.isCreating()) {
       const mainField = get(this.getModel(), 'info.mainField') || this.getModel().primaryKey;
       this.props.getData(this.props.match.params.id, this.getSource(), mainField);
+    } else {
+      this.props.getLayout(this.getSource());
     }
 
     // Get all relations made with the upload plugin
@@ -106,10 +104,33 @@ export class EditPage extends React.Component {
   }
 
   /**
+   * Retrive the model's custom layout
+   * @return {[type]} [description]
+   */
+  getLayout = () => (
+    bindLayout.call(this, this.props.editPage.layout)
+  )
+
+  /**
+   *
+   *
+   * @type {[type]}
+   */
+  getAttributeValidations = (name) => get(this.props.editPage.formValidations, [findIndex(this.props.editPage.formValidations, ['name', name]), 'validations'], {})
+
+
+  /**
    * Retrieve the model
    * @type {Object}
    */
   getModel = () => get(this.props.models, ['models', this.getModelName()]) || get(this.props.models, ['plugins', this.getSource(), 'models', this.getModelName()]);
+
+  /**
+   * Retrieve specific attribute
+   * @type {String} name
+   */
+  getModelAttribute = (name) => get(this.getModelAttributes(), name);
+
 
   /**
    * Retrieve the model's attributes
@@ -138,9 +159,35 @@ export class EditPage extends React.Component {
    */
   getSource = () => getQueryParameters(this.props.location.search, 'source');
 
+  handleBlur = ({ target }) => {
+    const defaultValue = get(this.getModelAttribute(target.name), 'default');
+
+    if (isEmpty(target.value) && defaultValue && target.value !== false) {
+      return this.props.changeData({
+        target: {
+          name: `record.${target.name}`,
+          value: defaultValue,
+        },
+      });
+    }
+
+    const errorIndex = findIndex(this.props.editPage.formErrors, ['name', target.name]);
+    const errors = inputValidations(target.value, this.getAttributeValidations(target.name), target.type);
+    const formErrors = cloneDeep(this.props.editPage.formErrors);
+
+    if (errorIndex === -1 && !isEmpty(errors)) {
+      formErrors.push({ name: target.name, errors });
+    } else if (errorIndex !== -1 && isEmpty(errors)) {
+      formErrors.splice(errorIndex, 1);
+    } else if (!isEmpty(errors)) {
+      formErrors.splice(errorIndex, 1, { name: target.name, errors });
+    }
+
+    return this.props.setFormErrors(formErrors);
+  }
+
   handleChange = (e) => {
     let value = e.target.value;
-
     // Check if date
     if (isObject(e.target.value) && e.target.value._isAMomentObject === true) {
       value = moment(e.target.value, 'YYYY-MM-DD HH:mm:ss').format();
@@ -167,8 +214,6 @@ export class EditPage extends React.Component {
     this.props.setFormErrors(formErrors);
   }
 
-  layout = bindLayout.call(this, layout);
-
   componentDidCatch(error, info) {
     console.log('err', error);
     console.log('info', info);
@@ -178,7 +223,8 @@ export class EditPage extends React.Component {
 
   isRelationComponentNull = () => (
     Object.keys(get(this.getSchema(), 'relations', {})).filter(relation => (
-      get(this.getSchema(), ['relations', relation, 'plugin']) !== 'upload'
+      get(this.getSchema(), ['relations', relation, 'plugin']) !== 'upload' &&
+      (!get(this.getSchema(), ['relations', relation, 'nature'], '').toLowerCase().includes('morph') || !get(this.getSchema(), ['relations', relation, relation]))
     )).length === 0
   )
 
@@ -212,7 +258,7 @@ export class EditPage extends React.Component {
 
   render() {
     const { editPage } = this.props;
-    
+
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -230,27 +276,31 @@ export class EditPage extends React.Component {
                     didCheckErrors={editPage.didCheckErrors}
                     formValidations={editPage.formValidations}
                     formErrors={editPage.formErrors}
-                    layout={this.layout}
+                    layout={this.getLayout()}
                     modelName={this.getModelName()}
+                    onBlur={this.handleBlur}
                     onChange={this.handleChange}
                     record={editPage.record}
+                    resetProps={editPage.resetProps}
                     schema={this.getSchema()}
                   />
                 </div>
               </div>
-              <div className={cn('col-lg-3', this.isRelationComponentNull() ? 'hidden-xl-down' : '')}>
-                <div className={styles.sub_wrapper}>
-                  {!this.isRelationComponentNull() && (
-                    <EditRelations
-                      currentModelName={this.getModelName()}
-                      location={this.props.location}
-                      changeData={this.props.changeData}
-                      record={editPage.record}
-                      schema={this.getSchema()}
-                    />
-                  )}
+              {!this.isRelationComponentNull() && (
+                <div className={cn('col-lg-3')}>
+                  <div className={styles.sub_wrapper}>
+                    {!this.isRelationComponentNull() && (
+                      <EditRelations
+                        currentModelName={this.getModelName()}
+                        location={this.props.location}
+                        changeData={this.props.changeData}
+                        record={editPage.record}
+                        schema={this.getSchema()}
+                      />
+                    )}
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </form>
@@ -271,6 +321,7 @@ EditPage.propTypes = {
   changeData: PropTypes.func.isRequired,
   editPage: PropTypes.object.isRequired,
   getData: PropTypes.func.isRequired,
+  getLayout: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   initModelProps: PropTypes.func.isRequired,
   location: PropTypes.object.isRequired,
@@ -289,6 +340,7 @@ function mapDispatchToProps(dispatch) {
     {
       changeData,
       getData,
+      getLayout,
       initModelProps,
       onCancel,
       resetProps,

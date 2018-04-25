@@ -1,0 +1,68 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/destinations",
+      "handler": "Destinations.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/destinations/:id",
+      "handler": "Destinations.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/destinations",
+      "handler": "Destinations.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/destinations/:id",
+      "handler": "Destinations.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/destinations/:id",
+      "handler": "Destinations.destroy",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/destinations/:id/relationships/:relation",
+      "handler": "Destinations.createRelation",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/destinations/:id/relationships/:relation",
+      "handler": "Destinations.updateRelation",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/destinations/:id/relationships/:relation",
+      "handler": "Destinations.destroyRelation",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

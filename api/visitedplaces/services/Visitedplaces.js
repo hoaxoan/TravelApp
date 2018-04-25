@@ -25,13 +25,17 @@ module.exports = {
 
     return Visitedplaces.query(function (qb) {
       _.forEach(convertedParams.where, (where, key) => {
-        _.forEach(where, async wh => {
-          qb.where(key, wh.symbol, wh.value);
-        });
+        if (_.isArray(where.value)) {
+          for (const value in where.value) {
+            qb[value ? 'where' : 'orWhere'](key, where.symbol, where.value[value])
+          }
+        } else {
+          qb.where(key, where.symbol, where.value);
+        }
       });
 
       if (convertedParams.sort) {
-        qb.orderBy(convertedParams.sort);
+        qb.orderBy(convertedParams.sort.key, convertedParams.sort.order);
       }
 
       qb.offset(convertedParams.start);

@@ -25,13 +25,17 @@ module.exports = {
 
     return Entities.query(function(qb) {
       _.forEach(convertedParams.where, (where, key) => {
-        _.forEach(where, async wh => {
-          qb.where(key, wh.symbol, wh.value);
-        });
+        if (_.isArray(where.value)) {
+          for (const value in where.value) {
+            qb[value ? 'where' : 'orWhere'](key, where.symbol, where.value[value])
+          }
+        } else {
+          qb.where(key, where.symbol, where.value);
+        }
       });
 
       if (convertedParams.sort) {
-        qb.orderBy(convertedParams.sort);
+        qb.orderBy(convertedParams.sort.key, convertedParams.sort.order);
       }
 
       qb.offset(convertedParams.start);
@@ -49,9 +53,10 @@ module.exports = {
    */
 
   fetch: async (params) => {
-    // Photos
+    const id = _.pick(params, 'id').id;
+    // Photos    
     const photos = [];
-    const data = await strapi.services.photos.fetchAll({'related_id': _.pick(params, 'id').id});
+    const data = await strapi.services.photos.fetchAll({'related_id': id});
     _.forEach(data.models, async model => {
       const photo = await strapi.plugins['upload'].services.upload.fetch({'id': model.attributes.upload_file_id});
       photos.push(photo);
@@ -65,28 +70,28 @@ module.exports = {
     _.set(entity, 'attributes.photos', photos);
 
     // Landmark
-    const landmark = await Landmarks.forge({'entity_id': _.pick(params, 'id').id}).fetch({
+    const landmark = await Landmarks.forge({'entity_id': id}).fetch({
       withRelated: _.keys(_.groupBy(_.reject(strapi.models.landmarks.associations, {autoPopulate: false}), 'alias'))
     });
 
     _.set(entity, 'attributes.landmark', landmark);
     
     // Hotel
-    const hotel = await Hotels.forge({'entity_id': _.pick(params, 'id').id}).fetch({
+    const hotel = await Hotels.forge({'entity_id': id).fetch({
       withRelated: _.keys(_.groupBy(_.reject(strapi.models.hotels.associations, {autoPopulate: false}), 'alias'))
     });
     
     _.set(entity, 'attributes.hotel', hotel);
 
     // Restaurant
-    const restaurant = await Restaurants.forge({'entity_id': _.pick(params, 'id').id}).fetch({
+    const restaurant = await Restaurants.forge({'entity_id': id}).fetch({
       withRelated: _.keys(_.groupBy(_.reject(strapi.models.restaurants.associations, {autoPopulate: false}), 'alias'))
     });
 
     _.set(entity, 'attributes.restaurant', restaurant);
 
     // Amenity
-    const amenities = await strapi.services.amenities.fetchAll({'entity_id': _.pick(params, 'id').id});
+    const amenities = await strapi.services.amenities.fetchAll({'entity_id': id});
     
     _.set(entity, 'attributes.amenities', amenities);
         

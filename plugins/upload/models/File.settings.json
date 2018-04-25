@@ -28,7 +28,7 @@
       "required": true
     },
     "size": {
-      "type": "integer",
+      "type": "float",
       "configurable": false,
       "required": true
     },
@@ -41,7 +41,11 @@
       "type": "string",
       "configurable": false,
       "required": true
+    },
+    "related": {
+      "collection": "*",
+      "filter": "field",
+      "configurable": false
     }
-  },
-  "collectionName": "upload_file"
+  }
 }

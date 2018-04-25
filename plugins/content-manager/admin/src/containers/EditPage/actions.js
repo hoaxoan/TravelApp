@@ -11,6 +11,8 @@ import {
   CHANGE_DATA,
   GET_DATA,
   GET_DATA_SUCCEEDED,
+  GET_LAYOUT,
+  GET_LAYOUT_SUCCEEDED,
   INIT_MODEL_PROPS,
   ON_CANCEL,
   RESET_PROPS,
@@ -48,17 +50,38 @@ export function getDataSucceeded(id, data, pluginHeaderTitle) {
   };
 }
 
+export function getLayout(source) {
+  return {
+    type: GET_LAYOUT,
+    source,
+  };
+}
+
+export function getLayoutSucceeded(layout) {
+  return {
+    type: GET_LAYOUT_SUCCEEDED,
+    layout,
+  };
+}
+
 export function initModelProps(modelName, isCreating, source, attributes) {
   const formValidations = getValidationsFromForm(
     Object.keys(attributes).map(attr => ({ name: attr, validations: get(attributes, attr, {}) })),
     [],
   );
+  const record = Object.keys(attributes).reduce((acc, current) => {
+    if (attributes[current].default) {
+      acc[current] = attributes[current].default;
+    }
+    return acc;
+  }, {});
 
   return {
     type: INIT_MODEL_PROPS,
     formValidations,
     isCreating,
     modelName,
+    record,
     source,
   };
 }

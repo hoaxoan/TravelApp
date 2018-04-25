@@ -1,3 +1,3 @@
-# TravelAPI
+# myProject
 
-A quick description of TravelAPI.
+A quick description of myProject.

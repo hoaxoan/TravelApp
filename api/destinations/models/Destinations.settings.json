@@ -1,0 +1,19 @@
+{
+  "connection": "default",
+  "collectionName": "destinations",
+  "info": {
+    "name": "destinations",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "name": {
+      "multiple": false,
+      "type": "string"
+    }
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "name": "TravelAPI",
+  "name": "myProject",
   "private": true,
   "version": "0.1.0",
   "description": "A Strapi application.",
@@ -20,8 +20,8 @@
   },
   "dependencies": {
     "lodash": "4.x.x",
-    "strapi": "3.0.0-alpha.11.1",
-    "strapi-bookshelf": "3.0.0-alpha.11.1",
+    "strapi": "3.0.0-alpha.12.0.1",
+    "strapi-bookshelf": "3.0.0-alpha.12.0.1",
     "mysql": "2.15.0"
   },
   "author": {
@@ -37,7 +37,7 @@
     }
   ],
   "strapi": {
-    "uuid": "93ef2e1c-d09a-4d78-8cc0-80889cecb4b4"
+    "uuid": "76422983-1032-4262-8383-51cbb3c37f2f"
   },
   "engines": {
     "node": ">= 7.0.0",
