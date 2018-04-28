@@ -1,0 +1,215 @@
+type Amenities {
+  id: String
+  created_at: String
+  updated_at: String
+  name: String
+  position: Int
+  thumbnailUrl: String
+}
+
+type Categories {
+  id: String
+  created_at: String
+  updated_at: String
+  name: String
+  type: Int
+}
+
+type Destinations {
+  id: String
+  created_at: String
+  updated_at: String
+  name: String
+}
+
+type Entities {
+  id: String
+  created_at: String
+  updated_at: String
+  name: String
+  description: String
+  photo: String
+  watch: Int
+  address: String
+  phone: String
+  latE7: Int
+  lngE7: Int
+  website: String
+  ratingHistogram: Float
+  reviewsCount: Int
+  voteCount: Int
+  type: Int
+}
+
+type Guidelines {
+  id: String
+  created_at: String
+  updated_at: String
+  name: String
+  description: String
+}
+
+type Hotels {
+  id: String
+  created_at: String
+  updated_at: String
+  entity_id: Int
+  hotelClass: String
+  prices: Float
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type Landmarks {
+  id: String
+  created_at: String
+  updated_at: String
+  entity_id: Int
+  indoorType: String
+}
+
+type Moods {
+  id: String
+  created_at: String
+  updated_at: String
+  name: String
+  position: Int
+}
+
+union Morph = Amenities | Categories | Destinations | Entities | Guidelines | Hotels | Landmarks | Photos | Restaurants | Reviews | Trips | Visitedplaces | Moods | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+
+type Photos {
+  id: String
+  created_at: String
+  updated_at: String
+  upload_file_id: Int
+  related_id: Int
+  related_type: String
+  field: String
+  photo: UploadFile
+}
+
+type Query {
+  amenity(id: String!): Amenities
+  amenities(sort: String, limit: Int, start: Int, where: JSON): [Amenities]
+  category(id: String!): Categories
+  categories(sort: String, limit: Int, start: Int, where: JSON): [Categories]
+  destination(id: String!): Destinations
+  destinations(sort: String, limit: Int, start: Int, where: JSON): [Destinations]
+  entity(id: String!): Entities
+  entities(sort: String, limit: Int, start: Int, where: JSON): [Entities]
+  guideline(id: String!): Guidelines
+  guidelines(sort: String, limit: Int, start: Int, where: JSON): [Guidelines]
+  hotel(id: String!): Hotels
+  hotels(sort: String, limit: Int, start: Int, where: JSON): [Hotels]
+  landmark(id: String!): Landmarks
+  landmarks(sort: String, limit: Int, start: Int, where: JSON): [Landmarks]
+  photo(id: String!): Photos
+  photos(sort: String, limit: Int, start: Int, where: JSON): [Photos]
+  restaurant(id: String!): Restaurants
+  restaurants(sort: String, limit: Int, start: Int, where: JSON): [Restaurants]
+  review(id: String!): Reviews
+  reviews(sort: String, limit: Int, start: Int, where: JSON): [Reviews]
+  trip(id: String!): Trips
+  trips(sort: String, limit: Int, start: Int, where: JSON): [Trips]
+  visitedplace(id: String!): Visitedplaces
+  visitedplaces(sort: String, limit: Int, start: Int, where: JSON): [Visitedplaces]
+  mood(id: String!): Moods
+  moods(sort: String, limit: Int, start: Int, where: JSON): [Moods]
+  files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
+  role(id: String!): UsersPermissionsRole
+
+  """
+  Retrieve all the existing roles. You can't apply filters on this query.
+  """
+  roles(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsRole]
+  user(id: String!): UsersPermissionsUser
+  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+}
+
+type Restaurants {
+  id: String
+  created_at: String
+  updated_at: String
+  entity_id: Int
+  indoorType: String
+}
+
+type Reviews {
+  id: String
+  created_at: String
+  updated_at: String
+  title: String
+  text: String
+  rating: Int
+  reviewerName: String
+  reviewerImageUrl: String
+  timeStamp: Int
+}
+
+type Trips {
+  id: String
+  created_at: String
+  updated_at: String
+  name: String
+  photo: String
+  start_date: String
+  end_date: String
+  status: Int
+}
+
+type UploadFile {
+  id: String
+  created_at: String
+  updated_at: String
+  name: String
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  related(sort: String, limit: Int, start: Int, where: JSON): [Morph]
+}
+
+type UsersPermissionsPermission {
+  id: String
+  type: String
+  controller: String
+  action: String
+  enabled: Boolean
+  policy: String
+  role: UsersPermissionsRole
+}
+
+type UsersPermissionsRole {
+  id: String
+  name: String
+  description: String
+  type: String
+  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+  permissions(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsPermission]
+}
+
+type UsersPermissionsUser {
+  id: String
+  username: String
+  email: String
+  provider: String
+  password: String
+  resetPasswordToken: String
+  role: UsersPermissionsRole
+}
+
+type Visitedplaces {
+  id: String
+  created_at: String
+  updated_at: String
+  user_id: String
+  related_id: Int
+  related_type: String
+  field: String
+}

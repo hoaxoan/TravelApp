@@ -100,16 +100,50 @@ module.exports = {
    * @return {Promise}
    */
 
-  fetchByUser: async (params) => {
+  fetchByUser: async (ctx) => {
     // VisitedPlaces
-    const visitedplaces = await strapi.services.visitedplaces.fetchAll(params);
+    const visitedplaces = await strapi.services.visitedplaces.fetchAll(ctx.query);
+    if(visitedplaces.length <= 0){
+      return visitedplaces;
+    }
+
     const ids = [];
 
     _.forEach(visitedplaces.models, async visitedplace => {
       ids.push(visitedplace.attributes.related_id);
     });
 
-    return await strapi.services.entities.fetchAll({ 'ids': ids });
+    const data = await strapi.services.entities.fetchAll({ 'ids': ids });
+      
+    // Execute entities function of the watch for all entities.
+    return Promise.all(
+      data.map(async entity => {
+        if(ctx.state.user != null){
+          // VisitedPlaces
+          const visitedplace = await strapi.services.visitedplaces.fetchOneByUser({'related_id': entity.id, "user_id": ctx.state.user.id});
+          _.set(entity, 'attributes.visitedPlace', visitedplace);
+          if(visitedplace != null){
+            _.set(entity, 'attributes.watch', 1);
+          } else {
+            _.set(entity, 'attributes.watch', 0);
+          }
+        }
+        return entity;
+      })
+    );
+    
+  },
+  /**
+   * Promise to fetch a/an visisited places by user.
+   *
+   * @return {Promise}
+   */
+
+  fetchOneByUser: async (params) => {
+    const data = await Visitedplaces.forge(params).fetch({
+      withRelated: _.keys(_.groupBy(_.reject(strapi.models.visitedplaces.associations, {autoPopulate: false}), 'alias'))
+    });
+    return data;
     
   }
 

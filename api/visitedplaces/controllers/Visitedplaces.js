@@ -15,7 +15,7 @@ module.exports = {
    */
 
   find: async (ctx) => {
-    const data = await strapi.services.visitedplaces.fetchByUser(ctx.query);
+    const data = await strapi.services.visitedplaces.fetchByUser(ctx);
 
     // Send 200 `ok`
     ctx.send(data);

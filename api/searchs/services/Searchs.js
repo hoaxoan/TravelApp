@@ -27,7 +27,7 @@ module.exports = {
       _.forEach(convertedParams.where, (where, key) => {
         if (_.isArray(where.value)) {
           for (const value in where.value) {
-            qb[value ? 'where' : 'orWhere'](key, where.symbol, where.value[value])
+            qb[!where.orWhere ? 'where' : 'orWhere'](key, where.symbol, where.value[value])
           }
         } else {
           qb.where(key, where.symbol, where.value);
@@ -87,24 +87,25 @@ module.exports = {
       } else if (key === '_q') {
         value = "%" + value + "%";
         result = {
-          key : 'where.name[0]',
+          key : 'where.name',
           value : {
             symbol: 'like',
             value
           }
-        }
+        };
       } else if ((key === 'trip_id' && value === '0')
       || (key === 'type' && value === '0')
       || (key === 'mood_id' && value === '0')) {
         result = null;
       } else if (key === 'ids') {
         result = {
-          key : 'where.id[0]',
+          key : 'where.id',
           value : {
-            symbol: 'in',
+            orWhere: true,
+            symbol: '=',
             value
           }
-        }
+        };
       } else {
         const suffix = key.split('_');
 

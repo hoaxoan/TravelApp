@@ -27,7 +27,7 @@ module.exports = {
       _.forEach(convertedParams.where, (where, key) => {
         if (_.isArray(where.value)) {
           for (const value in where.value) {
-            qb[value ? 'where' : 'orWhere'](key, where.symbol, where.value[value])
+            qb[!where.orWhere ? 'where' : 'orWhere'](key, where.symbol, where.value[value])
           }
         } else {
           qb.where(key, where.symbol, where.value);
@@ -52,7 +52,8 @@ module.exports = {
    * @return {Promise}
    */
 
-  fetch: async (params) => {
+  fetch: async (ctx) => {
+    const params = ctx.params;
     const id = _.pick(params, 'id').id;
     // Photos    
     const photos = [];
@@ -77,7 +78,7 @@ module.exports = {
     _.set(entity, 'attributes.landmark', landmark);
     
     // Hotel
-    const hotel = await Hotels.forge({'entity_id': id).fetch({
+    const hotel = await Hotels.forge({'entity_id': id}).fetch({
       withRelated: _.keys(_.groupBy(_.reject(strapi.models.hotels.associations, {autoPopulate: false}), 'alias'))
     });
     
@@ -94,7 +95,17 @@ module.exports = {
     const amenities = await strapi.services.amenities.fetchAll({'entity_id': id});
     
     _.set(entity, 'attributes.amenities', amenities);
-        
+    
+    if(ctx.state.user != null){
+      // VisitedPlaces
+      const visitedplace = await strapi.services.visitedplaces.fetchOneByUser({'related_id': id, "user_id": ctx.state.user.id});
+      _.set(entity, 'attributes.visitedPlace', visitedplace);
+      if(visitedplace != null){
+        _.set(entity, 'attributes.watch', 1);
+      } else {
+        _.set(entity, 'attributes.watch', 0);
+      }
+    }
     return entity;
   },
 
@@ -132,5 +143,33 @@ module.exports = {
       await Entities.forge(params)[association.alias]().detach();
     });
     return Entities.forge(params).destroy();
-  }
+  },
+
+  /**
+  * Promise to fetch all entities.
+  *
+  * @return {Promise}
+  */
+
+ fetchAllWith: async (ctx) => {
+    const data = await strapi.services.entities.fetchAll(ctx.query);
+
+    // Execute entities function of the watch for all entities.
+    return Promise.all(
+      data.map(async entity => {
+        if(ctx.state.user != null){
+          // VisitedPlaces
+          const visitedplace = await strapi.services.visitedplaces.fetchOneByUser({'related_id': entity.id, "user_id": ctx.state.user.id});
+          _.set(entity, 'attributes.visitedPlace', visitedplace);
+          if(visitedplace != null){
+            _.set(entity, 'attributes.watch', 1);
+          } else {
+            _.set(entity, 'attributes.watch', 0);
+          }
+        }
+        return entity;
+      })
+    );
+ }
+
 };

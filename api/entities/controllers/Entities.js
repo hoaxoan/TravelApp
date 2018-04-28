@@ -15,7 +15,7 @@ module.exports = {
    */
 
   find: async (ctx) => {
-    const data = await strapi.services.entities.fetchAll(ctx.query);
+    const data = await strapi.services.entities.fetchAllWith(ctx);
 
     // Send 200 `ok`
     ctx.send(data);
@@ -28,7 +28,7 @@ module.exports = {
    */
 
   findOne: async (ctx) => {
-    const data = await strapi.services.entities.fetch(ctx.params);
+    const data = await strapi.services.entities.fetch(ctx);
 
     // Send 200 `ok`
     ctx.send(data);
