@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Landmarks.js service
+ * Entitiesmoods.js service
  *
  * @description: A set of functions similar to controller's actions to avoid code duplication.
  */
@@ -15,19 +15,19 @@ const utils = require('strapi-bookshelf/lib/utils/');
 module.exports = {
 
   /**
-   * Promise to fetch all landmarks.
+   * Promise to fetch all entitiesmoods.
    *
    * @return {Promise}
    */
 
-  searchs: (params) => {
-    const convertedParams = strapi.services.searchs.convertSearchParams('entities', params);
-    
-    return Entities.query(function(qb) {
+  fetchAll: (params) => {
+    const convertedParams = strapi.services.entitiesmoods.convertParams('entitiesmoods', params);
+
+    return Entitiesmoods.query(function(qb) {
       _.forEach(convertedParams.where, (where, key) => {
         if (_.isArray(where.value)) {
           for (const value in where.value) {
-            qb[!where.orWhere ? 'where' : 'orWhere'](key, where.symbol, where.value[value])
+            qb[value ? 'where' : 'orWhere'](key, where.symbol, where.value[value])
           }
         } else {
           qb.where(key, where.symbol, where.value);
@@ -42,11 +42,59 @@ module.exports = {
 
       qb.limit(convertedParams.limit);
     }).fetchAll({
-      withRelated: _.keys(_.groupBy(_.reject(strapi.models.landmarks.associations, {autoPopulate: false}), 'alias'))
+      withRelated: _.keys(_.groupBy(_.reject(strapi.models.entitiesmoods.associations, {autoPopulate: false}), 'alias'))
     });
   },
 
-  convertSearchParams: (entity, params) => {
+  /**
+   * Promise to fetch a/an entitiesmoods.
+   *
+   * @return {Promise}
+   */
+
+  fetch: (params) => {
+    return Entitiesmoods.forge(_.pick(params, 'id')).fetch({
+      withRelated: _.keys(_.groupBy(_.reject(strapi.models.entitiesmoods.associations, {autoPopulate: false}), 'alias'))
+    });
+  },
+
+  /**
+   * Promise to add a/an entitiesmoods.
+   *
+   * @return {Promise}
+   */
+
+  add: async (values) => {
+    const data = await Entitiesmoods.forge(_.omit(values, _.keys(_.groupBy(strapi.models.entitiesmoods.associations, 'alias')))).save();
+    await strapi.hook.bookshelf.manageRelations('entitiesmoods', _.merge(_.clone(data.toJSON()), { values }));
+    return data;
+  },
+
+  /**
+   * Promise to edit a/an entitiesmoods.
+   *
+   * @return {Promise}
+   */
+
+  edit: async (params, values) => {
+    await strapi.hook.bookshelf.manageRelations('entitiesmoods', _.merge(_.clone(params), { values }));
+    return Entitiesmoods.forge(params).save(_.omit(values, _.keys(_.groupBy(strapi.models.entitiesmoods.associations, 'alias'))), {path: true});
+  },
+
+  /**
+   * Promise to remove a/an entitiesmoods.
+   *
+   * @return {Promise}
+   */
+
+  remove: (params) => {
+    _.forEach(Entitiesmoods.associations, async association => {
+      await Entitiesmoods.forge(params)[association.alias]().detach();
+    });
+    return Entitiesmoods.forge(params).destroy();
+  },
+
+  convertParams: (entity, params) => {
     if (!entity) {
       throw new Error('You can\'t call the convert params method without passing the model\'s name as a first argument.');
     }
@@ -95,7 +143,7 @@ module.exports = {
         };
       } else if ((key === 'trip_id' && value === '0')
       || (key === 'type' && value === '0')
-      || (key === 'mood_id')) {
+      || (key === 'mood_id' && value === '0')) {
         result = null;
       } else if (key === 'ids') {
         result = {

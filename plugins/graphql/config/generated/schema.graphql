@@ -15,13 +15,6 @@ type Categories {
   type: Int
 }
 
-type Destinations {
-  id: String
-  created_at: String
-  updated_at: String
-  name: String
-}
-
 type Entities {
   id: String
   created_at: String
@@ -38,6 +31,16 @@ type Entities {
   ratingHistogram: Float
   reviewsCount: Int
   voteCount: Int
+  type: Int
+}
+
+type Entitiesmoods {
+  id: String
+  created_at: String
+  updated_at: String
+  entity_id: Int
+  mood_id: Int
+  trip_id: Int
   type: Int
 }
 
@@ -79,7 +82,7 @@ type Moods {
   position: Int
 }
 
-union Morph = Amenities | Categories | Destinations | Entities | Guidelines | Hotels | Landmarks | Photos | Restaurants | Reviews | Trips | Visitedplaces | Moods | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
+union Morph = Amenities | Categories | Entities | Entitiesmoods | Guidelines | Hotels | Landmarks | Photos | Restaurants | Reviews | Trips | Visitedplaces | Moods | UploadFile | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsUser
 
 type Photos {
   id: String
@@ -97,10 +100,10 @@ type Query {
   amenities(sort: String, limit: Int, start: Int, where: JSON): [Amenities]
   category(id: String!): Categories
   categories(sort: String, limit: Int, start: Int, where: JSON): [Categories]
-  destination(id: String!): Destinations
-  destinations(sort: String, limit: Int, start: Int, where: JSON): [Destinations]
   entity(id: String!): Entities
   entities(sort: String, limit: Int, start: Int, where: JSON): [Entities]
+  entitiesmood(id: String!): Entitiesmoods
+  entitiesmoods(sort: String, limit: Int, start: Int, where: JSON): [Entitiesmoods]
   guideline(id: String!): Guidelines
   guidelines(sort: String, limit: Int, start: Int, where: JSON): [Guidelines]
   hotel(id: String!): Hotels

@@ -5,5 +5,25 @@
         "appearance": ""
       }
     }
+  },
+  "entitiesMoods": {
+    "attributes": {
+      "entity_id": {
+        "appearance": ""
+      },
+      "mood_id": {
+        "appearance": ""
+      }
+    }
+  },
+  "entitiesmoods": {
+    "attributes": {
+      "trip_id": {
+        "appearance": ""
+      },
+      "type": {
+        "appearance": ""
+      }
+    }
   }
 }

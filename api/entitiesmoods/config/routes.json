@@ -2,64 +2,64 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/destinations",
-      "handler": "Destinations.find",
+      "path": "/entitiesmoods",
+      "handler": "Entitiesmoods.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/destinations/:id",
-      "handler": "Destinations.findOne",
+      "path": "/entitiesmoods/:id",
+      "handler": "Entitiesmoods.findOne",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/destinations",
-      "handler": "Destinations.create",
+      "path": "/entitiesmoods",
+      "handler": "Entitiesmoods.create",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/destinations/:id",
-      "handler": "Destinations.update",
+      "path": "/entitiesmoods/:id",
+      "handler": "Entitiesmoods.update",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/destinations/:id",
-      "handler": "Destinations.destroy",
+      "path": "/entitiesmoods/:id",
+      "handler": "Entitiesmoods.destroy",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/destinations/:id/relationships/:relation",
-      "handler": "Destinations.createRelation",
+      "path": "/entitiesmoods/:id/relationships/:relation",
+      "handler": "Entitiesmoods.createRelation",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/destinations/:id/relationships/:relation",
-      "handler": "Destinations.updateRelation",
+      "path": "/entitiesmoods/:id/relationships/:relation",
+      "handler": "Entitiesmoods.updateRelation",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/destinations/:id/relationships/:relation",
-      "handler": "Destinations.destroyRelation",
+      "path": "/entitiesmoods/:id/relationships/:relation",
+      "handler": "Entitiesmoods.destroyRelation",
       "config": {
         "policies": []
       }

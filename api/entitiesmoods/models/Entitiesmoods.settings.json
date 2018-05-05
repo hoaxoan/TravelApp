@@ -1,0 +1,31 @@
+{
+  "connection": "default",
+  "collectionName": "entities_moods",
+  "info": {
+    "name": "entitiesmoods",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "comment": ""
+  },
+  "attributes": {
+    "entity_id": {
+      "multiple": false,
+      "type": "integer"
+    },
+    "mood_id": {
+      "multiple": false,
+      "type": "integer"
+    },
+    "trip_id": {
+      "multiple": false,
+      "type": "integer"
+    },
+    "type": {
+      "multiple": false,
+      "type": "integer"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Lifecycle callbacks for the `Destinations` model.
+ * Lifecycle callbacks for the `Entitiesmoods` model.
  */
 
 module.exports = {

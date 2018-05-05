@@ -152,7 +152,44 @@ module.exports = {
   */
 
  fetchAllWith: async (ctx) => {
-    const data = await strapi.services.entities.fetchAll(ctx.query);
+    var params = ctx.query;
+  
+    var mood_id = '0';
+    if(_.pick(params, 'mood_id') != null){
+      mood_id = _.pick(params, 'mood_id').mood_id;
+    } 
+
+    if(mood_id != null && mood_id != '0'){
+      var trip_id = '0';
+      if(_.pick(params, 'trip_id') != null){
+        trip_id = _.pick(params, 'trip_id').trip_id;
+      }
+
+      var type = '0';
+      if(_.pick(params, 'type') != null){
+        type = _.pick(params, 'type').type;
+      }
+
+      const ids = [];
+      const moods = await strapi.services.entitiesmoods.fetchAll({'trip_id': trip_id, 'type': type, 'mood_id': mood_id});
+      _.forEach(moods.models, async model => {
+        ids.push(model.attributes.entity_id);
+      });
+
+      if(ids.length <= 0){
+        return moods;
+      }
+
+      if(params != null) {
+        params.trip_id = '0';
+        params.type = '0';
+        params.mood_id = '0';
+        params.ids = ids;
+      }
+      
+    }
+    
+    const data = await strapi.services.entities.fetchAll(params);
 
     // Execute entities function of the watch for all entities.
     return Promise.all(
