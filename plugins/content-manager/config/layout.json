@@ -25,5 +25,15 @@
         "appearance": ""
       }
     }
+  },
+  "guidelines": {
+    "attributes": {
+      "trip_id": {
+        "appearance": ""
+      },
+      "parent_id": {
+        "appearance": ""
+      }
+    }
   }
 }

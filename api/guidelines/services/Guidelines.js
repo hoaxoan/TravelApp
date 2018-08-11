@@ -101,14 +101,21 @@ module.exports = {
    * @return {Promise}
    */
 
-  fetchByCategory: async (params) => {
+  fetchBySubGuidelines: async (params) => {
     
-    const category = await strapi.services.categories.fetch({'id': _.pick(params, 'category_id').category_id});
-    const guidelines = await strapi.services.guidelines.fetchAll(params);
-    
-    _.set(category, 'attributes.guidelines', guidelines);
+    var parentId = _.pick(params, 'parent_id').parent_id;
 
-    return category;
+    if(parentId != null && parentId != '0'){
+      const guideline = await strapi.services.guidelines.fetch({'id': _.pick(params, 'parent_id').parent_id});
+      const guidelines = await strapi.services.guidelines.fetchAll(params);
+      
+      _.set(guideline, 'attributes.guidelines', guidelines);
+  
+      return guideline;
+    } else {
+      return await strapi.services.guidelines.fetchAll(params);  
+    }
+    
   }
 
 };

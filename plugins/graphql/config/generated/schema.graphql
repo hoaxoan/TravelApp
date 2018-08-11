@@ -50,6 +50,8 @@ type Guidelines {
   updated_at: String
   name: String
   description: String
+  trip_id: Int
+  parent_id: Int
 }
 
 type Hotels {

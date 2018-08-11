@@ -15,7 +15,7 @@ module.exports = {
    */
 
   find: async (ctx) => {
-    const data = await strapi.services.guidelines.fetchByCategory(ctx.query);
+    const data = await strapi.services.guidelines.fetchBySubGuidelines(ctx.query);
 
     // Send 200 `ok`
     ctx.send(data);

@@ -18,6 +18,14 @@
     "description": {
       "type": "string",
       "multiple": false
+    },
+    "trip_id": {
+      "multiple": false,
+      "type": "integer"
+    },
+    "parent_id": {
+      "multiple": false,
+      "type": "integer"
     }
   }
 }
